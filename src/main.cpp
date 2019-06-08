@@ -503,6 +503,9 @@ class HexSyn {
 			} else {
 				throw std::runtime_error("* operator not operating on valid block");
 			}
+		} else {
+			std::cout << "Offending char: " << line[i] << std::endl;
+			throw std::runtime_error("Unknown character while parsing file.");
 		}
 	}
 

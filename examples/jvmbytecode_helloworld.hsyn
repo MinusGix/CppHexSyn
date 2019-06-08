@@ -1,0 +1,74 @@
+; JVM Bytecode for Hello World
+; Following https://medium.com/@davethomas_9528/writing-hello-world-in-java-byte-code-34f75428e0ad
+
+CAFEBABE ; Java Magic Number
+	$D2_0 ; Minor version
+	$D2_52 ; Major version, 52.0
+$D2_22 ; The size of the constant pool, always 1 bigger than actual size
+{ ; constant pool
+	0700 $d2 ; Creates class, pointing to an entry in the constant pool.
+	01 $D2_10 $sz"HelloWorld" ; utf8 string, if we were actually using utf8 this would be a pain
+
+	0700 $d4 ; Creates class, this is our super class, points to next item (index #4)
+	01 $D2_16 $sz"java/lang/Object"
+
+	0700 $d6
+	01 $D2_16 $sz"java/lang/System"
+
+	0700 $d8
+	01 $D2_19 $sz"java/io/PrintStream"
+
+	0800 $d10 ; 08 indicates a string constant
+	01 $D2_11 $sz"Hello World"
+
+	09 $D2_5 $D2_12 ; Field reference, 09 {constant pool index for class it belongs too} {name and type reference}
+	0C $D2_13 $D2_14  ; 0c = tag type for NameAndType (? whatever that is), 13 is the name, a entry at that index ("out"). 0C {name index} {type index}
+	01 $D2_3 $sz"out" ; name
+	01 $D2_21 $sz"Ljava/io/PrintStream;" ; type
+
+	0a $D2_7 $D2_16 ; 0a = method, 0A {constant pool index for classs} {NameAndType index}
+	0C $D2_17 $D2_18 ; name index=17, type index=18
+	01 $D2_7 $sz"println"
+	01 $D2_21 $sz"(Ljava/lang/String;)V"
+
+	01 $D2_4 $sz"main"
+	01 $D2_22 $sz"([Ljava/lang/String;)V"
+	01 $D2_4 $sz"Code"
+}
+0021 ; Access Modifiers (ACC_SUPER(0x0020) and ACC_PUBLIC(0x0001))
+$D2_1 ; Index of class in constant pool
+$D2_3 ; Index of class's super class in constant pool
+0000 ; Number of interfaces
+{ ; interface definitions
+
+}
+0000 ; Number of fields in this class
+{ ; Field definitions
+
+}
+0001 ; Number of methods in this class
+{ ; Method definitions
+	0009 ; access modifiers (ACC_STATIC (0x0008) and ACC_PUBLIC (0x0001)), public static
+		$D2_19 ; index into constant pool, name of method ("main")
+		$D2_20 ; The type of the method ("([Ljava/lang/String;)")
+		$D2_1 ; Number of attributes
+		{ ; describes attribute_info's
+			$D2_21 ; Code Attribute, index into constant pool
+			$D4_21 ; Code Attribute size of 21 bytes
+			; Code attribute:
+			$D2_2 ; Max stack size of 2
+			$D2_1 ; max local var size of 1
+			$D4_9 ; Size of code in bytes
+			b2 $D2_11 ; b2=getstatic, index in constant pool ("out")
+			12 09 ; 12=ldc (load constant), load from index 19 ("Hello World")
+			b6 $D2_15 ; b6=invokevirtual, method index in constant pool (println)
+			b1 ; b1=return void
+			0000 ; Exception table of size 0
+			{}
+			0000 ; Attribute count for this attribute of 0
+		}
+}
+0000 ; Attributes count (metadata for class file)
+{ ; Attribute definitions
+
+}
