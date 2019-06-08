@@ -1,0 +1,10 @@
+Ideas:
+- Have special flags
+	- One which tells it to run a command in terminal on the file after it's created
+		- Allow adding to the list with successive declarations
+	- One which says "this next area is in reverse endian".. but actually doing that will be troublesome
+		- Temp file?
+	- Default min byte count (0), so you can have everything take up at least this amount of bytes
+		- Can be redefined
+		- Can be set to 'default' for, well, default
+	
